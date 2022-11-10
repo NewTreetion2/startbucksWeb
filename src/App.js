@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+// import logo from "./logo.svg";
+import React, { Component, useState } from "react";
+import "./css/App.css";
+import Header from "./component/Header";
+import Article from "./component/Article";
+import GlobalStyles from "./css/GlobalStyles";
+function OnButton(props) {
+  return <article>ddd</article>;
+}
 function App() {
+  const [id, setId] = useState(1);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <>
+      <GlobalStyles />
+      <div className="App">
+        <Header></Header>
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          href={"/nav/" + id}
+          onClick={(event) => {
+            event.preventDefault();
+          }}
+          onMouseOver={(event) => {
+            OnButton(id);
+          }}
         >
-          Learn React
+          aa
         </a>
-      </header>
-    </div>
+        <Article></Article>
+      </div>
+    </>
   );
 }
 

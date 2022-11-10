@@ -1,0 +1,22 @@
+header {
+  height: 120px;
+  width: 100%;
+  border-bottom: 1px solid black;
+  background-color: #f6f5ef;
+}
+
+article {
+  height: 2000px;
+}
+
+.main-inner {
+  display: flex;
+  height: 120px;
+  width: 73%;
+  align-items: center;
+}
+
+.main-header {
+  display: flex;
+  justify-content: center;
+}
