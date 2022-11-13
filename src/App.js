@@ -1,12 +1,23 @@
 import React, { Component, useState } from "react";
 import "./css/App.css";
 import GlobalStyles from "./css/GlobalStyles";
+import menuName from "./constant";
 
 function BtnNav(props) {
   if (Number(props.navNum) === props.direction) {
     return (
       <section>
-        <article style={{}} className="onmouse-space"></article>
+        <article
+          onMouseEnter={(event) => {
+            props.setnavNum(props.direction);
+            props.setNavOpen(true);
+          }}
+          onMouseLeave={(event) => {
+            props.setnavNum(0);
+            props.setNavOpen(false);
+          }}
+          className="onmouse-space"
+        ></article>
       </section>
     );
   }
@@ -28,7 +39,7 @@ function Button(props) {
             event.target.style.textDecoration = "underline";
             event.target.style.color = "#669900";
             event.target.style.backgroundColor = "#2c2a29";
-            props.setnavNum(Number(event.target.className));
+            props.setnavNum(event.target.className);
             props.deriction(props.id[i]);
           }
         }}
@@ -37,6 +48,16 @@ function Button(props) {
           event.target.style.color = "black";
           event.target.style.backgroundColor = "#f6f5ef";
           props.setnavNum(0);
+          // if (props.NavOpen) {
+          //   props.setnavNum(false);
+          //   event.target.style.textDecoration = "underline";
+          //   event.target.style.color = "#669900";
+          //   event.target.style.backgroundColor = "#2c2a29";
+          // }
+          //   event.target.style.textDecoration = "none";
+          //   event.target.style.color = "black";
+          //   event.target.style.backgroundColor = "#f6f5ef";
+          // }
         }}
       >
         {props.title[i].title}
@@ -46,21 +67,12 @@ function Button(props) {
   return newButton;
 }
 
+const id = menuName.map((name) => name.id);
+
 function App() {
-  const menuName = [
-    { id: 1, title: "COFFEE" },
-    { id: 2, title: "MENU" },
-    { id: 3, title: "STORE" },
-    { id: 4, title: "RESPONSIBILITY" },
-    { id: 5, title: "STARBUCKS REWARDS" },
-    { id: 6, title: "WHAT'S NEW" },
-  ];
-  const id = [];
-  for (let i = 0; i < menuName.length; i++) {
-    id.push(menuName[i].id);
-  }
-  const [navNumver, setnavNumver] = useState(1);
+  const [navNumber, setnavNumber] = useState(1);
   const [direction, setDirection] = useState(1);
+  const [navOpen, setNavOpen] = useState(false);
   return (
     <>
       <header>
@@ -90,18 +102,35 @@ function App() {
                 ></img>
               </div>
               <div className="down-nav">
+                {/* {menuName.map((test, index) => {
+                  return (
+                    <Button
+                      id={index}
+                      title={menuName}
+                      setnavNum={setnavNumber}
+                      deriction={setDirection}
+                      NavOpen={navOpen}
+                    />
+                  );
+                })} */}
                 <Button
                   id={id}
                   title={menuName}
-                  setnavNum={setnavNumver}
+                  setnavNum={setnavNumber}
                   deriction={setDirection}
+                  NavOpen={navOpen}
                 />
               </div>
             </div>
           </div>
         </div>
       </header>
-      <BtnNav navNum={navNumver} direction={direction}></BtnNav>
+      <BtnNav
+        setNavOpen={setNavOpen}
+        setnavNum={setnavNumber}
+        navNum={navNumber}
+        direction={direction}
+      />
       <footer></footer>
     </>
   );
